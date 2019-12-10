@@ -1,0 +1,19 @@
+/*SIMA ANA-MARIA - 323CB*/
+
+client.c:
+
+La primul task am facut o cerere de GET catre URL-ul: /task1/start. Am folosit functia open_connection() pentru a deschide un socket necesar conectarii cu serverul. Am formulat cererea cu ajutorul functiei compute_get_request() si mai apoi am trimis mesajul catre server cu send_to_server(). La final, inchid conexiunea cu close_connection().
+
+La al doilea task am trimis o cerere POST catre URL-ul extras din raspunsul primit pentru cererea de la 1. Am parsat raspunsul primit pana am ajuns la mesajul din body. Am folosit biblioteca Parson pentru a parsa mesajul de tip JSON. Cookie-urile le-am extras din raspuns pentru ca ulterior sa le pun in header-ul de Cookie din request. Am extras de asemenea type-ul necesar pentru a completa header-ul de Content-Type. Functia compute_post_request a primit de asemenea host-ul, URL-ul si form_data(trimisa sub forma unui string in care am concatenat informatiile necesare). La final am inchis conexiunea.
+
+Al treilea task a constat in trimiterea unui request de GET catre URL-ul extras din raspunsul anterior. De data aceasta, am avut de extras un token de autorizare (JWT) care sa apara in header-ul Authorization(pastrat in string-ul jwt in implementarea mea). Am avut acum nevoie de functia json_object_get_object() pentru a extrage anumite date. Am trimis si de data aceasta cookie-urile. Am trimis de asemenea un string in care am concatenat informatiile ce apar la url_params. In final am inchis conexiunea cu serverul.
+
+La al patrulea task am facut un request de tip GET. URL-ul din nou a fost extras din raspunsul anterior. Am avut si de aceasta data nevoie de JWT pentru autorizare. Cookie-urile au fost si ele trimise. 
+
+Task-ul cu numarul cinci a presupus 2 cereri.
+Prima data am facut un GET pe un host extras folosindu-ma de functia gethostbyname(). 
+In a doua parte am trimis un POST cu informatiile extrase din raspunsul primit in urma cererii de la 4.
+
+requests.c:
+
+Are doua functii: compute_get_request() si compute_post_request(), care scriu mesajele de request pentru GET, respectiv POST.
